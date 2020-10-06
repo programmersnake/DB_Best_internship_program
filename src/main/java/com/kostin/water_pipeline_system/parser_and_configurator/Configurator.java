@@ -1,5 +1,6 @@
 package com.kostin.water_pipeline_system.parser_and_configurator;
 
+import com.kostin.water_pipeline_system.h2.H2DriverToUse;
 import com.kostin.water_pipeline_system.model.Node;
 
 import java.io.BufferedWriter;
@@ -13,6 +14,7 @@ import java.util.Set;
 public class Configurator implements ConfiguratorInterface {
 
     private Parser parser;
+    private H2DriverToUse h2Driver;
     private List<Node> nodeListWithAllNodes;
     private List<Node[]> nodeListToSearch;
     private String[] urlsToFiles = new String[] {
@@ -22,6 +24,7 @@ public class Configurator implements ConfiguratorInterface {
 
     public Configurator () {
         parser = new ParserCSV();
+        h2Driver = new H2DriverToUse();
         nodeListWithAllNodes = new ArrayList<>();
         nodeListToSearch = new ArrayList<>();
     }
@@ -45,17 +48,25 @@ public class Configurator implements ConfiguratorInterface {
     @Override
     public List<Node[]> getAllNodesToSearch() {
         List<String> stringsWithAllNodes = parser.parse( new File( urlsToFiles[1] ) );
-        System.out.println("Configurator.class allNodesToSearch: " + stringsWithAllNodes);
+        //System.out.println("Configurator.class allNodesToSearch: " + stringsWithAllNodes);
 
         createNodesToSearch( stringsWithAllNodes );
 
-        System.out.println("Configurator.class NodeListToSearch: ");
+        /*System.out.println("Configurator.class NodeListToSearch: ");
 
         for(Node[] pairToNodes:nodeListToSearch) {
             System.out.println("[ "+pairToNodes[0].getName()+", "+pairToNodes[1].getName()+" ]");
-        }
+        }*/
+
+        h2Driver.insert_DataToTableFromPointsFile( stringsWithAllNodes );
+        printH2DriverSelectFromTables();
 
         return nodeListToSearch;
+    }
+
+    private void printH2DriverSelectFromTables() {
+        System.out.println("H2: SELECT FROM TABLES");
+        h2Driver.selectDataFromTheTables();
     }
 
     private void createNodesToSearch(List<String> stringsWithAllNodes) {
@@ -88,7 +99,9 @@ public class Configurator implements ConfiguratorInterface {
 
         addDestinationsToEachNode( stringsWithAllNodes );
 
-        System.out.println("Configurator.class NodeList: " + nodeListWithAllNodes );
+        //System.out.println("Configurator.class NodeList: " + nodeListWithAllNodes );
+
+        h2Driver.insert_DataToTableFromDescriptionFile( stringsWithAllNodes );
 
         return nodeListWithAllNodes;
 
