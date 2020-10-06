@@ -105,4 +105,53 @@ ________________________________________________________________________________
 
 ## Testing the application
 
-#### Входные данные:
+## Test №1
+
+#### Input data:
+
+##### Describe the water pipeline system^
+![describesMainTest](screenshots/describesMainTest.png)
+
+##### Set of points
+![setOfPointMainTest](screenshots/setOfPointMainTest.png)
+
+After running the application, the console:
+![resultAfterMainTest](screenshots/resultAfterMainTest.png)
+
+Created CSV file:
+![resultCSVFileMainTest](screenshots/resultCSVFileMainTest.png)
+
+
+## Test №2
+
+#### Input data:
+
+##### Describe the water pipeline system^
+![describesSecondTest](screenshots/describesSecondTest.png)
+
+##### Set of points
+![setOfPointSecondTest](screenshots/setOfPointSecondTest.png)
+
+After running the application, the console:
+![resultAfterSecondTest](screenshots/resultAfterSecondTest.png)
+
+Created CSV file:
+![resultCSVFileSecondTest](screenshots/resultCSVFileSecondTest.png)
+
+
+## Test №3
+
+#### Input data:
+
+##### Describe the water pipeline system^
+![describesThirdTest](screenshots/describesThirdTest.png)
+
+##### Set of points
+![setOfPointThirdTest](screenshots/setOfPointThirdTest.png)
+
+After running the application, the console:
+![resultAfterThirdTest](screenshots/resultAfterThirdTest.png)
+
+Created CSV file:
+![resultCSVFileThirdTest](screenshots/resultCSVFileThirdTest.png)
+
