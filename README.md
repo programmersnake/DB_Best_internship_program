@@ -33,5 +33,18 @@ List<Node> allNodes = configurator.getAllNodesWithDestinations();
 ```
 3) Creating graph from Nodes and search route between two points.
 
-The graph is formed by simply adding all the nodes from the listWithAllNodes to the graph structure.
+The graph is formed by simply adding all the nodes from the listWithAllNodes to the graph structure. 
 [Graph realization](https://github.com/programmersnake/DB_Best_internship_program/blob/master/src/main/java/com/kostin/water_pipeline_system/model/Graph.java)
+
+Dijkstra's algorithm performs the search for all connections in the graph. 
+[Dijkstra realization](https://github.com/programmersnake/DB_Best_internship_program/blob/master/src/main/java/com/kostin/water_pipeline_system/model/Dijkstra.java)
+
+Our algorithm finds the minimum distance between nodes and returns this result. And adds each node a distance to all other nodes.
+
+### Important note!
+#### Since, in the water pipeline system, water flows in only one direction.
+**Then our graph is unidirectional.** 
+```
+If there is a connection between node 1 and node 2, this does not mean that there is a connection between node 2 and node 1.
+```
+
