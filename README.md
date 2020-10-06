@@ -1,6 +1,14 @@
 # DB_Best_internship_program
 
 #### Hello everyone! This is a test task for DB Best Technologies.
+When developing the application, the console version of the application was chosen.
+For the sake of reducing the number of dependencies and minimizing the need to influence the JVM options.
+When starting a JavaFH application, you need to write the JVM options:
+```
+--module-path PATH_TO_MY_JAVAFX_LIB --add-modules javafx.controls --add-modules javafx.fxml --add-modules javafx.graphics
+```
+
+##### The console version of the application selected.
 
 ##### The app runs several primary stages:
 
@@ -48,3 +56,53 @@ Our algorithm finds the minimum distance between nodes and returns this result. 
 If there is a connection between node 1 and node 2, this does not mean that there is a connection between node 2 and node 1.
 ```
 
+4) Saving results int new CSV file.
+
+The results are saved to a file using the previously specified path.
+Files with input values also have their specified paths too.
+```
+private final String[] urlsToFinalFilesWithInputDatas = new String[]{
+                Objects.requireNonNull( this.getClass().getClassLoader().getResource( "csv/CSV_FileDescribeTheWaterPipelineSystem.csv" ) ).getFile().replaceFirst( "/C", "C" ).replaceAll( "%20", " " ),
+                Objects.requireNonNull( this.getClass().getClassLoader().getResource( "csv/CSV_FileSetOfPoints.csv" ) ).getFile().replaceFirst( "/C", "C" ).replaceAll( "%20", " " )
+        };
+```
+
+Substitutions in file paths occur when the application starts. The replacement of the character "% 20" by "" was written due to incorrect display of the space character (replacement with Unicode code) and incorrect operation of the program.
+
+Forcing this symbol to be replaced solves this problem.
+
+5) Database connection.
+
+Communication with the embedded H2 database is done by sending ordinary SQL requests.
+
+```
+CREATE_DESCRIPTIONS_QUERY = "CREATE TABLE DESCRIPTIONS (idx INT, idy INT, length INT)";
+
+CREATE_POINTS_QUERY = "CREATE TABLE POINTS (ida INT, idb INT)";
+
+INSERT_DATA_INTO_DESCRIPTIONS_QUERY = "INSERT INTO DESCRIPTIONS VALUES(";
+
+INSERT_DATA_INTO_POINTS_QUERY = "INSERT INTO POINTS VALUES(";
+
+SELECT_DATA_FROM_TABLE_QUERY = "SELECT * FROM ";
+```
+
+Requests for receiving data, loading data into the database are performed by changing the ready-made SQL codes.
+
+All command results when working with the database are duplicated in the console.
+
+Sample:
+```
+H2: DATABASE created!
+H2: Tables created!
+H2: Data into table [Descriptions] uploaded!
+H2: Data into table [Points] uploaded!
+```
+
+The highlights have been covered. Let's start testing the application.
+
+_________________________________________________________________________________________________________________________________________________________
+
+## Testing the application
+
+#### Входные данные:
