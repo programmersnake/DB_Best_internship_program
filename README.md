@@ -24,16 +24,23 @@ When starting a JavaFH application, you need to write the JVM options:
 
 <br>
 
-Let's describe the necessary steps in more detail.
-Creating H2 Database.
+#### Let's describe the necessary steps in more detail.
+
+1) Creating H2 Database.
+
 The application uses the embedded view of the Database. URL is "JDBC:h2:mem:".
-Parsing of CSV files.
+
+2) Parsing of CSV files.
+
 I was thinking to use the openCSV library for parsing. But, to reduce the number of project dependencies (reduce the size of the project, increase the speed of parsing by reducing the amount of unnecessary functionality), a lightweight version of the parser was written. For the sake of portability and flexibility, in case of substitution for another parser / mock, it is implemented from the interface.
+
 As soon as the nodes are created, the relationships between them are added. The main object does not interact directly with the parser and the database. It interacts with the configurator. The configurator works with a parser and creates lists with nodes that it generates based on data from files.
+
 ```
 List<Node> allNodes = configurator.getAllNodesWithDestinations();
 ```
-3) Creating graph from Nodes and search route between two points.
+
+3) Creating a graph from Nodes and search routes between two points.
 
 The graph is formed by simply adding all the nodes from the listWithAllNodes to the graph structure. 
 [Graph realization](https://github.com/programmersnake/DB_Best_internship_program/blob/master/src/main/java/com/kostin/water_pipeline_system/model/Graph.java)
@@ -50,10 +57,10 @@ Our algorithm finds the minimum distance between nodes and returns this result. 
 If there is a connection between node 1 and node 2, this does not mean that there is a connection between node 2 and node 1.
 ```
 
-4) Saving results int new CSV file.
+4) Saving results in a new CSV file.
 
 The results are saved to a file using the previously specified path.
-Files with input values also have their specified paths too.
+Files with input values have their specified paths too.
 ```
 private final String[] urlsToFinalFilesWithInputDatas = new String[]{
                 Objects.requireNonNull( this.getClass().getClassLoader().getResource( "csv/CSV_FileDescribeTheWaterPipelineSystem.csv" ) ).getFile().replaceFirst( "/C", "C" ).replaceAll( "%20", " " ),
@@ -61,7 +68,7 @@ private final String[] urlsToFinalFilesWithInputDatas = new String[]{
         };
 ```
 
-Substitutions in file paths occur when the application starts. The replacement of the character "% 20" by "" was written due to incorrect display of the space character (replacement with Unicode code) and incorrect operation of the program.
+Substitutions in file paths occur when the application starts. The replacement of the character "% 20" by " " was written due to incorrect display of the space character (replacement with Unicode code) and incorrect operation of the program.
 
 Forcing this symbol to be replaced solves this problem.
 
