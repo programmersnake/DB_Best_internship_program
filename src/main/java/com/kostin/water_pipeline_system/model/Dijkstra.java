@@ -58,12 +58,8 @@ public class Dijkstra {
             LinkedList<Node> shortestPath = new LinkedList<>(sourceNode.getShortestPath());
             shortestPath.add(sourceNode);
             evaluationNode.setShortestPath(shortestPath);
-            /*System.out.println("evauluation ["+evaluationNode.getName()+"] sourceNode ["+sourceNode.getName()+"] = "+
-                    Integer.sum( sourceDistance , edgeWeigh ));
-*/
-            //if(evaluationNode.equals( searchNode )||sourceNode.equals( searchNode )) {
+
             if(evaluationNode.equals( searchNode )) {
-                //System.out.println("SearchNode was serched. Length = "+Integer.sum( sourceDistance, edgeWeigh));
                 return Integer.sum( sourceDistance, edgeWeigh );
             }
         }

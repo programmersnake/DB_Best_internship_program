@@ -6,27 +6,25 @@ import com.kostin.water_pipeline_system.model.Node;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Configurator implements ConfiguratorInterface {
 
-    private Parser parser;
-    private H2DriverToUse h2Driver;
-    private List<Node> nodeListWithAllNodes;
-    private List<Node[]> nodeListToSearch;
-    private String[] urlsToFiles = new String[] {
-            this.getClass().getClassLoader().getResource( "csv/CSV_FileDescribeTheWaterPipelineSystem.csv" ).getFile().replaceFirst( "/C", "C" ).replaceAll( "%20", " " ),
-            this.getClass().getClassLoader().getResource( "csv/CSV_FileSetOfPoints.csv" ).getFile().replaceFirst( "/C", "C" ).replaceAll( "%20", " " )
-    };
+    private final Parser parser;
+    private final H2DriverToUse h2Driver;
+    private final List<Node> nodeListWithAllNodes;
+    private final List<Node[]> nodeListToSearch;
+    private final String[] urlsToFiles;
 
-    public Configurator () {
+    public Configurator() {
         parser = new ParserCSV();
         h2Driver = new H2DriverToUse();
         nodeListWithAllNodes = new ArrayList<>();
         nodeListToSearch = new ArrayList<>();
+        urlsToFiles = new String[]{
+                Objects.requireNonNull( this.getClass().getClassLoader().getResource( "csv/CSV_FileDescribeTheWaterPipelineSystem.csv" ) ).getFile().replaceFirst( "/C", "C" ).replaceAll( "%20", " " ),
+                Objects.requireNonNull( this.getClass().getClassLoader().getResource( "csv/CSV_FileSetOfPoints.csv" ) ).getFile().replaceFirst( "/C", "C" ).replaceAll( "%20", " " )
+        };
     }
 
     @Override
@@ -48,15 +46,8 @@ public class Configurator implements ConfiguratorInterface {
     @Override
     public List<Node[]> getAllNodesToSearch() {
         List<String> stringsWithAllNodes = parser.parse( new File( urlsToFiles[1] ) );
-        //System.out.println("Configurator.class allNodesToSearch: " + stringsWithAllNodes);
 
         createNodesToSearch( stringsWithAllNodes );
-
-        /*System.out.println("Configurator.class NodeListToSearch: ");
-
-        for(Node[] pairToNodes:nodeListToSearch) {
-            System.out.println("[ "+pairToNodes[0].getName()+", "+pairToNodes[1].getName()+" ]");
-        }*/
 
         h2Driver.insert_DataToTableFromPointsFile( stringsWithAllNodes );
         printH2DriverSelectFromTables();
@@ -99,8 +90,6 @@ public class Configurator implements ConfiguratorInterface {
 
         addDestinationsToEachNode( stringsWithAllNodes );
 
-        //System.out.println("Configurator.class NodeList: " + nodeListWithAllNodes );
-
         h2Driver.insert_DataToTableFromDescriptionFile( stringsWithAllNodes );
 
         return nodeListWithAllNodes;
@@ -115,7 +104,7 @@ public class Configurator implements ConfiguratorInterface {
             String[] stringsAfterSplit = oneString.split( ";" );
             String nameOfFirstNode = stringsAfterSplit[0];
             String nameOfSecondNode = stringsAfterSplit[1];
-            int length = Integer.valueOf( stringsAfterSplit[2] );
+            int length = Integer.parseInt( stringsAfterSplit[2] );
 
             for (Node oneNode: nodeListWithAllNodes)
                 if(oneNode.getName().equals( nameOfFirstNode ))

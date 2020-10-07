@@ -22,13 +22,13 @@ public class H2DriverToUse {
 
     private final String CREATE_POINTS_QUERY = "CREATE TABLE POINTS (ida INT, idb INT)";
 
-    private String CREATE_SCHEMA = "CREATE SCHEMA test_schema";
+    private final String CREATE_SCHEMA = "CREATE SCHEMA test_schema";
 
-    private String INSERT_DATA_INTO_DESCRIPTIONS_QUERY = "INSERT INTO DESCRIPTIONS VALUES(";
+    private final String INSERT_DATA_INTO_DESCRIPTIONS_QUERY = "INSERT INTO DESCRIPTIONS VALUES(";
 
-    private String INSERT_DATA_INTO_POINTS_QUERY = "INSERT INTO POINTS VALUES(";
+    private final String INSERT_DATA_INTO_POINTS_QUERY = "INSERT INTO POINTS VALUES(";
 
-    private String SELECT_DATA_FROM_TABLE_QUERY = "SELECT * FROM ";
+    private final String SELECT_DATA_FROM_TABLE_QUERY = "SELECT * FROM ";
 
     private Connection dbConnection;
 
@@ -113,13 +113,13 @@ public class H2DriverToUse {
             if (labelOfTable.equals( "POINTS" )) {
                 System.out.println("___________POINTS___________");
                 while (rs.next()) {
-                    System.out.println( String.format( "%s, %s", rs.getInt( "IDA" ), rs.getInt( "IDB" ) ) );
+                    System.out.println( String.format( "%s, %s", rs.getInt( "ida" ), rs.getInt( "idb" ) ) );
                 }
             }
             else if (labelOfTable.equals( "DESCRIPTIONS" )) {
                 System.out.println("________DESCRIPTIONS________");
                 while (rs.next()) {
-                    System.out.println( String.format( "%s, %s", rs.getInt( "IDX" ), rs.getInt( "IDY" ), rs.getInt( "LENGTH" ) ) );
+                    System.out.println( String.format( "%s, %s, %s", rs.getInt( "idx" ), rs.getInt( "idy" ), rs.getInt( "length" ) ) );
                 }
             }
             rs.close();
