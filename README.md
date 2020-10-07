@@ -25,16 +25,10 @@ When starting a JavaFH application, you need to write the JVM options:
 <br>
 
 Let's describe the necessary steps in more detail.
-
-1) Creating H2 Database. 
-
-The application uses the embedded view of the Database. URL is "jdbc:h2:mem:".
-
-2) Parsing of CSV files.
-
-I was thinking to use the openxv library for parsing. But, in order to reduce the number of project dependencies (reduce the size of the project, increase the speed of parsing by reducing the amount of unnecessary functionality), a lightweight version of the parser was written.
-For the sake of portability and flexibility, in case of substitution for another parser / mock, it is implemented from the interface.
-
+Creating H2 Database.
+The application uses the embedded view of the Database. URL is "JDBC:h2:mem:".
+Parsing of CSV files.
+I was thinking to use the openCSV library for parsing. But, to reduce the number of project dependencies (reduce the size of the project, increase the speed of parsing by reducing the amount of unnecessary functionality), a lightweight version of the parser was written. For the sake of portability and flexibility, in case of substitution for another parser / mock, it is implemented from the interface.
 As soon as the nodes are created, the relationships between them are added. The main object does not interact directly with the parser and the database. It interacts with the configurator. The configurator works with a parser and creates lists with nodes that it generates based on data from files.
 ```
 List<Node> allNodes = configurator.getAllNodesWithDestinations();
