@@ -1,9 +1,10 @@
 # DB_Best_internship_program
 
 #### Hello everyone! This is a test task for DB Best Technologies.
-When developing the application, the console version of the application was chosen.
-For the sake of reducing the number of dependencies and minimizing the need to influence the JVM options.
-When starting a JavaFH application, you need to write the JVM options:
+When developing the application, the Console version of the application was chosen.
+For the sake of reducing the number of dependencies and minimizing the need to influence JVM parameters. 
+
+When starting a JavaFH application, you would need to write the JVM options:
 ```
 --module-path PATH_TO_MY_JAVAFX_LIB --add-modules javafx.controls --add-modules javafx.fxml --add-modules javafx.graphics
 ```
