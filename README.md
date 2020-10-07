@@ -8,7 +8,7 @@ When starting a JavaFH application, you need to write the JVM options:
 --module-path PATH_TO_MY_JAVAFX_LIB --add-modules javafx.controls --add-modules javafx.fxml --add-modules javafx.graphics
 ```
 
-##### The console version of the application selected.
+##### The console version of the application was selected.
 
 ##### The app runs several primary stages:
 
@@ -17,7 +17,7 @@ When starting a JavaFH application, you need to write the JVM options:
 1) Reading csv files.
 2) Getting data from [1] and creating Nodes.
 3) Uploading data from files into H2 DB.
-3) Creating graph from Nodes [2].
+3) Creating a graph from Nodes [2].
 4) Search route between the nodes into Graph.
 5) Saving results in new result.csv file.
 7) End of the app.
