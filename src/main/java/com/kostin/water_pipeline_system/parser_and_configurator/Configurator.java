@@ -14,14 +14,14 @@ public class Configurator implements ConfiguratorInterface {
     private final H2DriverToUse h2Driver;
     private final List<Node> nodeListWithAllNodes;
     private final List<Node[]> nodeListToSearch;
-    private final String[] urlsToFiles;
+    private final String[] urlsToFinalFilesWithInputDatas;
 
     public Configurator() {
         parser = new ParserCSV();
         h2Driver = new H2DriverToUse();
         nodeListWithAllNodes = new ArrayList<>();
         nodeListToSearch = new ArrayList<>();
-        urlsToFiles = new String[]{
+        urlsToFinalFilesWithInputDatas = new String[]{
                 Objects.requireNonNull( this.getClass().getClassLoader().getResource( "csv/CSV_FileDescribeTheWaterPipelineSystem.csv" ) ).getFile().replaceFirst( "/C", "C" ).replaceAll( "%20", " " ),
                 Objects.requireNonNull( this.getClass().getClassLoader().getResource( "csv/CSV_FileSetOfPoints.csv" ) ).getFile().replaceFirst( "/C", "C" ).replaceAll( "%20", " " )
         };
@@ -30,7 +30,7 @@ public class Configurator implements ConfiguratorInterface {
     @Override
     public void createResultFile(String resultString) {
         try {
-            String urlToNewResultFile = urlsToFiles[0].substring( 0, urlsToFiles[0].indexOf( "program/" ) ) + "program\\src\\main\\resources\\csv\\result.csv";
+            String urlToNewResultFile = urlsToFinalFilesWithInputDatas[0].substring( 0, urlsToFinalFilesWithInputDatas[0].indexOf( "program/" ) ) + "program\\src\\main\\resources\\csv\\result.csv";
             File newResultFile = new File( urlToNewResultFile );
 
             System.out.println("File with results created ["+newResultFile.getPath()+"].");
@@ -45,7 +45,7 @@ public class Configurator implements ConfiguratorInterface {
 
     @Override
     public List<Node[]> getAllNodesToSearch() {
-        List<String> stringsWithAllNodes = parser.parse( new File( urlsToFiles[1] ) );
+        List<String> stringsWithAllNodes = parser.parse( new File( urlsToFinalFilesWithInputDatas[1] ) );
 
         createNodesToSearch( stringsWithAllNodes );
 
@@ -84,7 +84,7 @@ public class Configurator implements ConfiguratorInterface {
 
     @Override
     public List<Node> getAllNodesWithDestinations() {
-        List<String> stringsWithAllNodes = parser.parse( new File( urlsToFiles[0] ) );
+        List<String> stringsWithAllNodes = parser.parse( new File( urlsToFinalFilesWithInputDatas[0] ) );
 
         createAllNodes( stringsWithAllNodes );
 

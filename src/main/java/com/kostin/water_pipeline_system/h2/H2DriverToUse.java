@@ -3,19 +3,7 @@ package com.kostin.water_pipeline_system.h2;
 import java.sql.*;
 import java.util.List;
 
-// Embedded DATA BASE
-
-/*
-0) Starting app.
-1) Reading csv files.
-2) Getting data from [1] and creating Nodes.
-3) Creating graph from Nodes [2].
-4) Search route between the nodes into Graph.
-5) Saving results in new csv file.
-6) Creating tables into H2 DB.
-7) End of the app.
- */
-
+// Embedded DATABASE
 
 public class H2DriverToUse {
     private final String CREATE_DESCRIPTIONS_QUERY = "CREATE TABLE DESCRIPTIONS (idx INT, idy INT, length INT)";
